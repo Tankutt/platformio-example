@@ -1,35 +1,58 @@
 #include <Arduino.h>
 
-int led1=13;
-char message;
+char *strings[3];
+char *ptr = NULL;
+String recievedMessage="";
+String firstPart="";
+String secondPart="";
+int led1=8;
+
 void setup() 
 {
   pinMode(led1,OUTPUT);
   Serial.begin(9600);
 }
 
-void loop() 
-{
+void loop() {
+
   if(Serial.available()>0)
   {
-    message=Serial.read();
-    if(message == '1')
+    recievedMessage = Serial.readString();
+
+    int index=0;
+    char reserve[10];
+    String cloneRecievedMessage;
+
+    recievedMessage.toCharArray(reserve,10);
+    ptr = strtok(reserve,",");
+
+    while(ptr != NULL)
+    {
+      strings[index] =ptr;
+      index++;
+      ptr = strtok(NULL,",");
+    }
+
+    firstPart=strings[0];
+    secondPart=strings[1];
+
+    if(firstPart == "L")
+    {
+      if(secondPart== "1")
       {
         digitalWrite(led1,HIGH);
-        Serial.println("ON");
+        Serial.println("ON");     
       }
-      else if(message == '2')
+      else if (secondPart == "0" )
       {
         digitalWrite(led1,LOW);
-        Serial.println("OFF");
+        Serial.println("OFF");  
       }
-
-      else if(message == '3')
-      {
-        
-        delay(5000);
-        //Serial.println("Message Received...");
-      }
-  
     }
+    else if(firstPart == "T")
+    {
+        // 
+    }
+  
+ 
 }
