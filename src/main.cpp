@@ -1,16 +1,35 @@
 #include <Arduino.h>
 
-void setup()
+int led1=13;
+char message;
+void setup() 
 {
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(led1,OUTPUT);
+  Serial.begin(9600);
 }
 
-// the loop function runs over and over again forever
-void loop()
+void loop() 
 {
-  digitalWrite(LED_BUILTIN, HIGH); // turn the LED on (HIGH is the voltage level)
-  delay(1000);                     // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);  // turn the LED off by making the voltage LOW
-  delay(1000);                     // wait for a second
+  if(Serial.available()>0)
+  {
+    message=Serial.read();
+    if(message == '1')
+    {
+    digitalWrite(led1,HIGH);
+    Serial.println("ON");
+    }
+    else if(message == '2')
+    {
+    digitalWrite(led1,LOW);
+    Serial.println("OFF");
+    }
+
+    else
+    {
+    digitalWrite(led1,LOW);
+    delay(message); // message text formatında geliyor ve int olmadığı için pyqt'den gelen değer kadar programı bekletemiyorum.
+    Serial.println("evet");
+    }
+  
+    }
 }
