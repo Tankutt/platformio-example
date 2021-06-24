@@ -14,22 +14,22 @@ void loop()
   {
     message=Serial.read();
     if(message == '1')
-    {
-    digitalWrite(led1,HIGH);
-    Serial.println("ON");
-    }
-    else if(message == '2')
-    {
-    digitalWrite(led1,LOW);
-    Serial.println("OFF");
-    }
+      {
+        digitalWrite(led1,HIGH);
+        Serial.println("ON");
+      }
+      else if(message == '2')
+      {
+        digitalWrite(led1,LOW);
+        Serial.println("OFF");
+      }
 
-    else
-    {
-    digitalWrite(led1,LOW);
-    delay(message); // message text formatında geliyor ve int olmadığı için pyqt'den gelen değer kadar programı bekletemiyorum.
-    Serial.println("evet");
-    }
+      else if(message == '3')
+      {
+        
+        delay(5000);
+        //Serial.println("Message Received...");
+      }
   
     }
 }
