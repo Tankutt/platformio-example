@@ -5,6 +5,8 @@ char *ptr = NULL;
 String recievedMessage="";
 String firstPart="";
 String secondPart="";
+unsigned long previousMillis = 0;
+int interval;
 int led1=8;
 
 void setup() 
@@ -18,6 +20,7 @@ void loop() {
   if(Serial.available()>0)
   {
     recievedMessage = Serial.readString();
+    unsigned long currentMillis = millis();
 
     int index=0;
     char reserve[10];
@@ -51,7 +54,12 @@ void loop() {
     }
     else if(firstPart == "T")
     {
-        // 
+      interval=secondPart.toInt();
+      if (currentMillis - previousMillis >= interval)
+      {
+        previousMillis = currentMillis;
+      }
+      Serial.println("feedback"); 
     }
   
  
