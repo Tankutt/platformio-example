@@ -6,12 +6,12 @@ String recievedMessage="";
 String firstPart="";
 String secondPart="";
 unsigned long previousMillis = 0;
-int interval;
-int led1=8;
+long interval;
+int led=13;
 
 void setup() 
 {
-  pinMode(led1,OUTPUT);
+  pinMode(led,OUTPUT);
   Serial.begin(9600);
 }
 
@@ -43,12 +43,12 @@ void loop() {
     {
       if(secondPart== "1")
       {
-        digitalWrite(led1,HIGH);
+        digitalWrite(led,HIGH);
         Serial.println("ON");     
       }
       else if (secondPart == "0" )
       {
-        digitalWrite(led1,LOW);
+        digitalWrite(led,LOW);
         Serial.println("OFF");  
       }
     }
@@ -58,8 +58,8 @@ void loop() {
       if (currentMillis - previousMillis >= interval)
       {
         previousMillis = currentMillis;
+        Serial.write("feedBack");
       }
-      Serial.println("feedback"); 
     }
   
  
